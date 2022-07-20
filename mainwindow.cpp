@@ -61,36 +61,33 @@ void MainWindow::doPainting()
 {
     QPainter painter(this);
     QPoint point;
-    Rectangle *rectangleObject = new Rectangle();
-    Ellipse *ellipseObject = new Ellipse();
     if(this->clicked_on_rectangle && this->clicked == true)
     {
-        std::unique_ptr<Shape> ptr(rectangleObject);
+        std::unique_ptr<Shape> ptr = std::make_unique<Rectangle>();
+        this->objects.push_back(std::move(ptr));
+        objects.back().get()->setPos(this->point);
+        this->clicked = false;
+
+    }
+    else if(this->clicked_on_ellipse && this->clicked == true)
+    {
+        std::unique_ptr<Shape> ptr = std::make_unique<Ellipse>();
         this->objects.push_back(std::move(ptr));
         objects.back().get()->setPos(this->point);
         this->clicked = false;
     }
-    else
-        if(this->clicked_on_ellipse && this->clicked == true)
+    else if(this->clicked)
+    {
+        for(int i = 0; i < objects.size(); i++)
         {
-            std::unique_ptr<Shape> ptr(ellipseObject);
-            this->objects.push_back(std::move(ptr));
-            objects.back().get()->setPos(this->point);
-            this->clicked = false;
-        }
-        else
-            if(this->clicked)
+            point = QCursor::pos() - this->geometry().topLeft();
+            if(objects[i].get()->isInsideShape(point, this->movable_number))
             {
-                for(int i = 0; i < objects.size(); i++)
-                {
-                    point = QCursor::pos() - this->geometry().topLeft();
-                    if(objects[i].get()->isInsideShape(point, this->movable_number))
-                    {
-                        movable_number = i;
-                        break;
-                    }
-                }
+                movable_number = i;
+                break;
             }
+        }
+    }
     for(int i = 0; i < objects.size(); i++)
         objects[i]->doPainting(painter, this->objects, this->movable_number, point, i);
 }
@@ -115,10 +112,9 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
             this->movable_number = -1;
         }
     }
-    else
-        if(event->type() == QEvent::MouseButtonRelease)
-        {
-            this->movable_number = -2;
-        }
+    else if(event->type() == QEvent::MouseButtonRelease)
+    {
+        this->movable_number = -2;
+    }
     return QWidget::eventFilter(obj, event);
 }
