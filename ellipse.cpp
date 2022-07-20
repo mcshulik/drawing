@@ -4,8 +4,8 @@
 
 void Ellipse::doPainting(QPainter &painter, std::vector<std::unique_ptr<Shape>> &objects, int movable_number, QPoint point, int number)
 {
-    painter.setPen(QColor("#d4d4d4"));
-    painter.setBrush(QBrush("#c56c00"));
+    painter.setPen(QColor(0xd4d4d4));
+    painter.setBrush(QBrush(0xc56c00));
     if(movable_number > -1)
     {
         static_cast<Ellipse*> (objects[movable_number].get())->x = point.x();
