@@ -22,8 +22,8 @@ class Rectangle : public Shape
         this->y = 0;
     }
     ~Rectangle() {};
-    void doPainting(QPainter &painter, std::vector<std::unique_ptr<Shape>> &objects, int movable_number, QPoint point, int number) override;
-    bool isInsideShape (QPoint point, int number) override;
+    void doPainting(QPainter &painter, QPoint point) override;
+    bool isInsideShape (QPoint point) override;
   private:
     int length = rectLength, width = rectWidth;
 };

@@ -61,35 +61,10 @@ void MainWindow::doPainting()
 {
     QPainter painter(this);
     QPoint point;
-    if(this->clicked_on_rectangle && this->clicked == true)
-    {
-        std::unique_ptr<Shape> ptr = std::make_unique<Rectangle>();
-        this->objects.push_back(std::move(ptr));
-        objects.back().get()->setPos(this->point);
-        this->clicked = false;
-
-    }
-    else if(this->clicked_on_ellipse && this->clicked == true)
-    {
-        std::unique_ptr<Shape> ptr = std::make_unique<Ellipse>();
-        this->objects.push_back(std::move(ptr));
-        objects.back().get()->setPos(this->point);
-        this->clicked = false;
-    }
-    else if(this->clicked)
-    {
-        for(int i = 0; i < objects.size(); i++)
-        {
-            point = QCursor::pos() - this->geometry().topLeft();
-            if(objects[i].get()->isInsideShape(point, this->movable_number))
-            {
-                movable_number = i;
-                break;
-            }
-        }
-    }
+    if(this->movable_number > -1)
+        objects[this->movable_number]->setPos(QCursor::pos() - this->geometry().topLeft());
     for(int i = 0; i < objects.size(); i++)
-        objects[i]->doPainting(painter, this->objects, this->movable_number, point, i);
+        objects[i]->doPainting(painter, point);
 }
 
 void MainWindow::paintEvent(QPaintEvent *e)
@@ -103,18 +78,37 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
     if (event->type() == QEvent::MouseButtonPress)
     {
         this->clicked = true;
-        if(this->clicked_on_rectangle || this->clicked_on_ellipse)
+        if(this->clicked_on_rectangle)
         {
             this->point = QCursor::pos() - this->geometry().topLeft();
+            std::unique_ptr<Shape> ptr = std::make_unique<Ellipse>();
+            this->objects.push_back(std::move(ptr));
+            objects.back().get()->setPos(this->point);
+            this->clicked = false;
+        }
+        else if(this->clicked_on_ellipse)
+        {
+            std::unique_ptr<Shape> ptr = std::make_unique<Rectangle>();
+            this->objects.push_back(std::move(ptr));
+            objects.back().get()->setPos(this->point);
+            this->clicked = false;
         }
         else
         {
-            this->movable_number = -1;
+            for(int i = 0; i < objects.size(); i++)
+            {
+                point = QCursor::pos() - this->geometry().topLeft();
+                if(objects[i].get()->isInsideShape(point))
+                {
+                    movable_number = i;
+                    break;
+                }
+            }
         }
     }
     else if(event->type() == QEvent::MouseButtonRelease)
     {
-        this->movable_number = -2;
+        this->movable_number = -1;
     }
     return QWidget::eventFilter(obj, event);
 }
