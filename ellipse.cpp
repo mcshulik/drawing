@@ -11,5 +11,9 @@ void Ellipse::doPainting(QPainter &painter, QPoint point)
 
 bool Ellipse::isInsideShape (QPoint point)
 {
-    return this->x <= point.x() && this->x + this->length >= point.x() && this->y <= point.y() && this->y + this->width >= point.y();
+    if((float)((float)((point.x() - this->x - this->length / 2) * (point.x() - this->x - this->length / 2)) / (float)((this->length * this->length / 4))) +
+       (float)((float)((this->y + this->width / 2 - point.y()) * (this->y + this->width / 2 - point.y())) / (float)((this->width * this->length / 4))) <= 1)
+        return true;
+    else
+        return false;
 }
