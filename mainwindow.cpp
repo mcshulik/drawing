@@ -3,6 +3,7 @@
 #include "rectangle.h"
 #include "ellipse.h"
 #include "QLayout"
+#include "shapeFactory.h"
 
 #define mylength 90
 #define mywidth 60
@@ -80,6 +81,7 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
         this->clicked = true;
         if(this->clicked_on_rectangle)
         {
+            Factory *factory = new ShapeFactory;
             this->point = QCursor::pos() - this->geometry().topLeft();
             std::unique_ptr<Shape> ptr = std::make_unique<Rectangle>();
             this->objects.push_back(std::move(ptr));

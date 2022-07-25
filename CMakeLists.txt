@@ -25,6 +25,9 @@ set(PROJECT_SOURCES
 	rectangle.h
 	ellipse.h
 	ellipse.cpp
+	factory.h
+	factory.cpp
+	shapeFactory.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
