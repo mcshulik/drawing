@@ -1,12 +1,8 @@
 #ifndef ELLIPSE_H
 #define ELLIPSE_H
 
-#endif // ELLIPSE_H
-
 #define ellipseLength 90
 #define ellipseWidth 60
-
-#pragma once
 
 #include "shape.h"
 
@@ -22,8 +18,10 @@ class Ellipse : public Shape
         this->y = 0;
     }
     ~Ellipse() {};
-    void doPainting(QPainter &painter, QPoint point) override;
+    void doPainting(QPainter &painter) override;
     bool isInsideShape (QPoint point) override;
   private:
     int length = ellipseLength, width = ellipseWidth;
 };
+
+#endif // ELLIPSE_H

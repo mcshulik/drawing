@@ -1,12 +1,8 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
 
-#endif // RECTANGLE_H
-
 #define rectLength 90
 #define rectWidth 60
-
-#pragma once
 
 #include "shape.h"
 
@@ -22,8 +18,10 @@ class Rectangle : public Shape
         this->y = 0;
     }
     ~Rectangle() {};
-    void doPainting(QPainter &painter, QPoint point) override;
+    void doPainting(QPainter &painter) override;
     bool isInsideShape (QPoint point) override;
   private:
     int length = rectLength, width = rectWidth;
 };
+
+#endif // RECTANGLE_H

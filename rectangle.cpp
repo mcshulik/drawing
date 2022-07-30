@@ -2,7 +2,7 @@
 #include "rectangle.h"
 #include <QCursor>
 
-void Rectangle::doPainting(QPainter &painter, QPoint point)
+void Rectangle::doPainting(QPainter &painter)
 {    
     painter.setPen(QColor(0xd4d4d4));
     painter.setBrush(QBrush(0xc56c00));
