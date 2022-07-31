@@ -14,6 +14,11 @@ namespace
     }adder;
 }
 
+Shape* RectangleFactory::createShape()
+{
+  return new Rectangle;
+}
+
 const char* RectangleFactory::getName()
 {
     return "Rectangle";

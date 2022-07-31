@@ -2,6 +2,14 @@
 #include "rectangle.h"
 #include <QCursor>
 
+Rectangle::Rectangle()
+{
+    this->length = rectLength;
+    this->width = rectWidth;
+    this->x = 0;
+    this->y = 0;
+}
+
 void Rectangle::doPainting(QPainter &painter)
 {    
     painter.setPen(QColor(0xd4d4d4));

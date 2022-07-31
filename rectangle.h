@@ -10,13 +10,7 @@ class Rectangle : public Shape
 {
 
   public:
-    Rectangle()
-    {
-        this->length = rectLength;
-        this->width = rectWidth;
-        this->x = 0;
-        this->y = 0;
-    }
+    Rectangle();
     ~Rectangle() {};
     void doPainting(QPainter &painter) override;
     bool isInsideShape (QPoint point) override;

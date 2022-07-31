@@ -14,6 +14,11 @@ namespace
     }adder;
 }
 
+Shape* EllipseFactory::createShape()
+{
+  return new Ellipse;
+}
+
 const char* EllipseFactory::getName()
 {
     return "Ellipse";

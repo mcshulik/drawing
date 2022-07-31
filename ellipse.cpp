@@ -2,6 +2,15 @@
 #include "ellipse.h"
 #include <QCursor>
 
+
+Ellipse::Ellipse()
+{
+    this->length = ellipseLength;
+    this->width = ellipseWidth;
+    this->x = 0;
+    this->y = 0;
+}
+
 void Ellipse::doPainting(QPainter &painter)
 {
     painter.setPen(QColor(0xd4d4d4));

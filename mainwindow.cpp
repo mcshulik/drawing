@@ -13,7 +13,6 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //ui->centralwidget->installEventFilter(this);
     QWidget * wdg = new QWidget(this);
     for(int i = 0; i < (FactorySingleton::getInstance())->getVect()->size(); i++)
     {
@@ -135,31 +134,6 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
                 break;
             }
         }
-        /*if(this->clicked_on_rectangle)
-        {
-            std::unique_ptr<Shape> ptr = std::make_unique<Rectangle>();
-            this->objects.push_back(std::move(ptr));
-            objects.back().get()->setPos(QCursor::pos() - this->geometry().topLeft());
-            this->clicked = false;
-        }
-        else if(this->clicked_on_ellipse)
-        {
-            std::unique_ptr<Shape> ptr = std::make_unique<Ellipse>();
-            this->objects.push_back(std::move(ptr));
-            objects.back().get()->setPos(QCursor::pos() - this->geometry().topLeft());
-            this->clicked = false;
-        }
-        else
-        {
-            for(int i = 0; i < objects.size(); i++)
-            {
-                if(objects[i].get()->isInsideShape(QCursor::pos() - this->geometry().topLeft()))
-                {
-                    movable_number = i;
-                    break;
-                }
-            }
-        }*/
     }
     else if(event->type() == QEvent::MouseButtonRelease)
     {

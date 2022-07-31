@@ -10,13 +10,7 @@ class Ellipse : public Shape
 {
 
   public:
-    Ellipse()
-    {
-        this->length = ellipseLength;
-        this->width = ellipseWidth;
-        this->x = 0;
-        this->y = 0;
-    }
+    Ellipse();
     ~Ellipse() {};
     void doPainting(QPainter &painter) override;
     bool isInsideShape (QPoint point) override;

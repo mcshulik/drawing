@@ -8,10 +8,7 @@
 class EllipseFactory : public Factory
 {
   public:
-    Shape* createShape() override
-    {
-      return new Ellipse;
-    }
+    Shape* createShape() override;
     virtual const char* getName() override;
 };
 

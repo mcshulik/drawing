@@ -7,10 +7,7 @@
 class RectangleFactory : public Factory
 {
   public:
-    Shape* createShape() override
-    {
-      return new Rectangle;
-    }
+    Shape* createShape() override;
     virtual const char* getName() override;
 };
 
