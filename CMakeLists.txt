@@ -33,6 +33,11 @@ set(PROJECT_SOURCES
 	factorySingleton.cpp
 	factory.h
 	factory.cpp
+	interfaceForPainting.h
+	qPainterAdapter.h
+	qPainterAdapter.cpp
+	fakePainter.h
+	fakePainter.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

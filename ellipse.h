@@ -5,6 +5,7 @@
 #define ellipseWidth 60
 
 #include "shape.h"
+#include "qPainterAdapter.h"
 
 class Ellipse : public Shape
 {
@@ -12,7 +13,7 @@ class Ellipse : public Shape
   public:
     Ellipse();
     ~Ellipse() {};
-    void doPainting(QPainter &painter) override;
+    void doPainting(InterfaceForPainting &interfaceForPainting) override;
     bool isInsideShape (QPoint point) override;
   private:
     int length = ellipseLength, width = ellipseWidth;

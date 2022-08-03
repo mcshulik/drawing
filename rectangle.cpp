@@ -10,11 +10,11 @@ Rectangle::Rectangle()
     this->y = 0;
 }
 
-void Rectangle::doPainting(QPainter &painter)
+void Rectangle::doPainting(InterfaceForPainting &interfaceForPainting)
 {    
-    painter.setPen(QColor(0xd4d4d4));
-    painter.setBrush(QBrush(0xc56c00));
-    painter.drawRect(this->x, this->y, this->length, this->width);
+    interfaceForPainting.setPen(0xd4d4d4);
+    interfaceForPainting.setBrush(0xc56c00);
+    interfaceForPainting.drawRect(this->x, this->y, this->length, this->width);
 }
 
 bool Rectangle::isInsideShape (QPoint point)

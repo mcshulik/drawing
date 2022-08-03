@@ -6,11 +6,6 @@ FactorySingleton* FactorySingleton::getInstance()
     return &factorySingletonItem;
 }
 
-FactorySingleton::FactorySingleton()
-{
-
-}
-
 const std::vector<std::unique_ptr<Factory>>* FactorySingleton::getVect()
 {
     return &this->factoryVec;

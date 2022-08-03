@@ -4,6 +4,7 @@
 #include "ellipse.h"
 #include "QLayout"
 #include "factorySingleton.h"
+#include "qPainterAdapter.h"
 
 #define mylength 90
 #define mywidth 60
@@ -99,9 +100,9 @@ void MainWindow::doPainting()
 {
     if(this->movable_number > -1)
         objects[this->movable_number]->setPos(QCursor::pos() - this->geometry().topLeft());
-    QPainter painter(this);
+    QPainterAdapter qPainterAdapter(this);
     for(int i = 0; i < objects.size(); i++)
-        objects[i]->doPainting(painter);
+        objects[i]->doPainting(qPainterAdapter);
 }
 
 void MainWindow::paintEvent(QPaintEvent *e)
@@ -120,6 +121,8 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
             if (pairItem.second.first)
             {
                 std::unique_ptr<Shape> ptr = std::unique_ptr<Shape>(pairItem.second.second->createShape());
+                int count = objects.size();
+                ptr->setPosChangedListener([&count](QPoint qpoint){printf("%d %d %d\n", qpoint.x(), qpoint.y(), count);});
                 this->objects.push_back(std::move(ptr));
                 objects.back().get()->setPos(QCursor::pos() - this->geometry().topLeft());
                 this->clicked = false;

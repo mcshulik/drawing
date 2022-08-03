@@ -12,7 +12,7 @@ class Rectangle : public Shape
   public:
     Rectangle();
     ~Rectangle() {};
-    void doPainting(QPainter &painter) override;
+    void doPainting(InterfaceForPainting &interfaceForPainting) override;
     bool isInsideShape (QPoint point) override;
   private:
     int length = rectLength, width = rectWidth;

@@ -2,7 +2,6 @@
 #include "ellipse.h"
 #include <QCursor>
 
-
 Ellipse::Ellipse()
 {
     this->length = ellipseLength;
@@ -11,11 +10,11 @@ Ellipse::Ellipse()
     this->y = 0;
 }
 
-void Ellipse::doPainting(QPainter &painter)
+void Ellipse::doPainting(InterfaceForPainting &interfaceForPainting)
 {
-    painter.setPen(QColor(0xd4d4d4));
-    painter.setBrush(QBrush(0xc56c00));
-    painter.drawEllipse(this->x, this->y, this->length, this->width);
+    interfaceForPainting.setPen(0xd4d4d4);
+    interfaceForPainting.setBrush(0xc56c00);
+    interfaceForPainting.drawEllipse(this->x, this->y, this->length, this->width);
 }
 
 bool Ellipse::isInsideShape (QPoint point)
