@@ -8,6 +8,11 @@ void Shape::setPos(QPoint point)
        onPosChanged(point);
 }
 
+void Shape::setColor(color::Color newBrushColor)
+{
+    this->brushColor = newBrushColor;
+}
+
 void Shape::setPosChangedListener(std::function<void(QPoint)> onPosChanged)
 {
     this->onPosChanged = onPosChanged;

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "shape.h"
+#include "QComboBox"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,16 +24,15 @@ public:
     Shape* createShape();
 
 private slots:
-    void on_EllipseButton_clicked();
-    void on_RectangleButton_clicked();
     void buttonClicked();
 
 private:
     void paintEvent(QPaintEvent *e);
     Ui::MainWindow *ui;
-    bool clicked = false, clicked_on_rectangle = false, clicked_on_ellipse = false, move = false;
+    bool clicked = false;
     std::vector<std::unique_ptr<Shape>> objects;
     int movable_number = -1;
+    QComboBox *colorButton;
     std::map<QPushButton*, std::pair<bool, Factory*>> mybuttonsClicked;
     std::vector<QPushButton*> mybuttons;
 };

@@ -17,7 +17,7 @@ class FactorySingleton
     static FactorySingleton* getInstance();
     const std::vector<std::unique_ptr<Factory>>* getVect();
   private:
-    FactorySingleton()  =default;
+    FactorySingleton() = default;
     FactorySingleton(const FactorySingleton&) = delete;
     std::vector<std::unique_ptr<Factory>> factoryVec;
     friend class FactoryAdder;

@@ -7,8 +7,8 @@ class QPainterAdapter : public InterfaceForPainting
 {
 public:
     QPainterAdapter(QPaintDevice *qPaintDevice);
-    void setBrush(int color) override;
-    void setPen(int color) override;
+    void setBrush(color::Color) override;
+    void setPen() override;
     void drawEllipse(int x, int y, int length, int width) override;
     void drawRect(int x, int y, int length, int width) override;
 private:

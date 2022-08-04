@@ -36,8 +36,10 @@ set(PROJECT_SOURCES
 	interfaceForPainting.h
 	qPainterAdapter.h
 	qPainterAdapter.cpp
-	fakePainter.h
-	fakePainter.cpp
+	painterMock.h
+	painterMock.cpp
+	unitTests.h
+	unitTests.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -12,8 +12,10 @@ Rectangle::Rectangle()
 
 void Rectangle::doPainting(InterfaceForPainting &interfaceForPainting)
 {    
-    interfaceForPainting.setPen(0xd4d4d4);
-    interfaceForPainting.setBrush(0xc56c00);
+    if(this->brushColor == color::Color::Empty)
+        return;
+    interfaceForPainting.setPen();
+    interfaceForPainting.setBrush(this->brushColor);
     interfaceForPainting.drawRect(this->x, this->y, this->length, this->width);
 }
 
