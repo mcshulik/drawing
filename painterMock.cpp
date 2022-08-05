@@ -3,6 +3,7 @@
 void PainterMock::setBrush(color::Color brushColor)
 {
      qPainter.setBrush(QBrush(0x000080));
+     this->currentColor = brushColor;
 }
 
 void PainterMock::setPen()
@@ -13,6 +14,7 @@ void PainterMock::setPen()
 void PainterMock::drawEllipse(int x, int y, int length, int width)
 {
     qPainter.drawEllipse(x, y, length, width);
+    this->ellipseColor = this->currentColor;
     this->drawEllipseQuantity++;
 }
 
@@ -20,11 +22,12 @@ void PainterMock::drawRect(int x, int y, int length, int width)
 {
     qPainter.drawRect(x, y, length, width);
     this->drawRectQuantity++;
+    this->rectangleColor = this->currentColor;
 }
 
 int PainterMock::getBrushColor()
 {
-    return this->brushColor;
+    return this->currentColor;
 }
 
 int PainterMock::getPenColor()
@@ -40,4 +43,14 @@ int PainterMock::getDrawEllipseQuantity()
 int PainterMock::getDrawRectQuantity()
 {
     return this->drawRectQuantity;
+}
+
+int PainterMock::getRectangleColor()
+{
+    return this->rectangleColor;
+}
+
+int PainterMock::getEllipseColor()
+{
+    return this->ellipseColor;
 }

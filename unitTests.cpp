@@ -35,18 +35,19 @@ bool checkDoPainting()
     Rectangle rect;
     PainterMock painterMock;
     ellipse.doPainting(painterMock);
-    if(painterMock.getDrawEllipseQuantity() != 0)
+    if(painterMock.getDrawEllipseQuantity() != 0 || painterMock.getEllipseColor() != painterMock.getBrushColor())
         return false;
     ellipse.setColor(color::Color::Blue);
     ellipse.doPainting(painterMock);
-    if(painterMock.getDrawEllipseQuantity() != 1)
+    if(painterMock.getDrawEllipseQuantity() != 1 || painterMock.getEllipseColor() != painterMock.getBrushColor())
         return false;
     rect.doPainting(painterMock);
-    if(painterMock.getDrawRectQuantity() != 0)
+    painterMock.setBrush(color::Color::Empty);
+    if(painterMock.getDrawRectQuantity() != 0 || painterMock.getRectangleColor() != painterMock.getBrushColor())
         return false;
     rect.setColor(color::Color::Blue);
     rect.doPainting(painterMock);
-    if(painterMock.getDrawRectQuantity() != 1)
+    if(painterMock.getDrawRectQuantity() != 1 || painterMock.getRectangleColor() != painterMock.getBrushColor())
         return false;
     return true;
 }
