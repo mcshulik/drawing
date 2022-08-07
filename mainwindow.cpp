@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     colorButton->setPlaceholderText("color");
     for(int i  = 0; i < color::Color::count; i++)
         colorButton->addItem(color::convertColorToString((color::Color)i));
+    colorButton->setCurrentIndex(0);
     colorButton->show();
 
     for(int i = 0; i < (FactorySingleton::getInstance())->getVect()->size(); i++)
@@ -105,7 +106,7 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
                 return QWidget::eventFilter(obj, event);
             }
         }
-        for(int i = 0; i < objects.size(); i++)
+        for(int i = objects.size() - 1; i > -1; i--)
         {
             if(objects[i].get()->isInsideShape(QCursor::pos() - this->geometry().topLeft()))
             {
