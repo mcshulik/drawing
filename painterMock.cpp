@@ -2,24 +2,24 @@
 
 void PainterMock::setBrush(color::Color brushColor)
 {
-     this->currentColor = brushColor;
+    this->brushColor = brushColor;
 }
 
 void PainterMock::drawEllipse(int x, int y, int length, int width)
 {
-    this->ellipseColor = this->currentColor;
+    this->ellipseColor = this->brushColor;
     this->drawEllipseQuantity++;
 }
 
 void PainterMock::drawRect(int x, int y, int length, int width)
 {
     this->drawRectQuantity++;
-    this->rectangleColor = this->currentColor;
+    this->rectangleColor = this->brushColor;
 }
 
-int PainterMock::getBrushColor()
+color::Color PainterMock::getBrushColor()
 {
-    return this->currentColor;
+    return this->brushColor;
 }
 
 int PainterMock::getDrawEllipseQuantity()
@@ -32,12 +32,12 @@ int PainterMock::getDrawRectQuantity()
     return this->drawRectQuantity;
 }
 
-int PainterMock::getRectangleColor()
+color::Color PainterMock::getRectangleColor()
 {
     return this->rectangleColor;
 }
 
-int PainterMock::getEllipseColor()
+color::Color PainterMock::getEllipseColor()
 {
     return this->ellipseColor;
 }

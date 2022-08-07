@@ -12,15 +12,16 @@ public:
     void setPen() override {};
     void drawEllipse(int x, int y, int length, int width) override;
     void drawRect(int x, int y, int length, int width) override;
-    int getBrushColor();
-    int getRectangleColor();
-    int getEllipseColor();
+    color::Color getBrushColor();
+    color::Color getRectangleColor();
+    color::Color getEllipseColor();
     int getDrawEllipseQuantity();
     int getDrawRectQuantity();
+
 private:
     int drawEllipseQuantity = 0;
     int drawRectQuantity = 0;
-    color::Color currentColor = color::Color::Empty;
+    color::Color brushColor = color::Color::Empty;
     color::Color rectangleColor = color::Color::Empty;
     color::Color ellipseColor = color::Color::Empty;
 };
