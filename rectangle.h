@@ -14,6 +14,8 @@ class Rectangle : public Shape
     ~Rectangle() {};
     void doPainting(InterfaceForPainting &interfaceForPainting) override;
     bool isInsideShape (QPoint point) override;
+    void xmlWrite(QXmlStreamWriter &xmlWriter) override;
+    static Shape* xmlRead(QXmlStreamReader &xmlReader);
   private:
     int length = rectLength, width = rectWidth;
 };

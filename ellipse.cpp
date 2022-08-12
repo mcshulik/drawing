@@ -26,3 +26,30 @@ bool Ellipse::isInsideShape (QPoint point)
             return true;
         else return false;
 }
+
+void Ellipse::xmlWrite(QXmlStreamWriter &xmlWriter)
+{
+    xmlWriter.writeStartElement("ellipse");
+
+    xmlWriter.writeAttribute("length", QString::number(length));
+    xmlWriter.writeAttribute("width", QString::number(width));
+    xmlWriter.writeAttribute("x", QString::number(x));
+    xmlWriter.writeAttribute("y", QString::number(y));
+    xmlWriter.writeAttribute("color", QString::number(brushColor));
+
+    xmlWriter.writeEndElement();
+}
+
+Shape* Ellipse::xmlRead(QXmlStreamReader &xmlReader)
+{
+    QXmlStreamAttributes attributes = xmlReader.attributes();
+    //attributes.value("length");
+    //attributes.value("width");
+    Ellipse *ellipse = new Ellipse;
+    QPoint ellipse_point;
+    ellipse_point.setX(attributes.value("x").toInt());
+    ellipse_point.setY(attributes.value("y").toInt());
+    ellipse->setColor(color::Color(attributes.value("color").toInt()));
+    ellipse->setPos(ellipse_point);
+    return ellipse;
+}

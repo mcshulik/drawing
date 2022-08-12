@@ -15,6 +15,8 @@ class Ellipse : public Shape
     ~Ellipse() {};
     void doPainting(InterfaceForPainting &interfaceForPainting) override;
     bool isInsideShape (QPoint point) override;
+    void xmlWrite(QXmlStreamWriter &xmlWriter) override;
+    static Shape* xmlRead(QXmlStreamReader &xmlReader);
   private:
     int length = ellipseLength, width = ellipseWidth;
 };

@@ -5,6 +5,9 @@
 #include "QLayout"
 #include "factorySingleton.h"
 #include "qPainterAdapter.h"
+#include "QFileDialog"
+#include <QXmlStreamWriter>
+#include "QFileDialog"
 
 #define mylength 90
 #define mywidth 60
@@ -25,7 +28,6 @@ MainWindow::MainWindow(QWidget *parent)
         colorButton->addItem(color::convertColorToString((color::Color)i));
     colorButton->setCurrentIndex(0);
     colorButton->show();
-
     for(int i = 0; i < (FactorySingleton::getInstance())->getVect()->size(); i++)
     {
         Factory* factory = (*(FactorySingleton::getInstance())->getVect())[i].get();
@@ -40,6 +42,14 @@ MainWindow::MainWindow(QWidget *parent)
     }
     wdg->installEventFilter(this);
     setCentralWidget(wdg);
+
+    keyCtrlS = new QShortcut(this);
+    keyCtrlS->setKey(Qt::CTRL | Qt::Key_S);
+    connect(keyCtrlS, SIGNAL(activated()), this, SLOT(slotShortcutCtrlS()));
+    keyCtrlL = new QShortcut(this);
+    keyCtrlL->setKey(Qt::CTRL | Qt::Key_L);
+    connect(keyCtrlL, SIGNAL(activated()), this, SLOT(slotShortcutCtrlL()));
+
     this->repaint();
 }
 
@@ -120,4 +130,71 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
         this->movable_number = -1;
     }
     return QWidget::eventFilter(obj, event);
+}
+
+void MainWindow::slotShortcutCtrlS()
+{
+    save();
+}
+
+void MainWindow::save()
+{
+    QString filePath = QFileDialog::getSaveFileName();
+    file = new QFile(filePath);
+    if(!file->open(QIODevice::WriteOnly))
+        return;
+    if(objects.size())
+    {
+        QXmlStreamWriter xmlWriter(file);
+        xmlWriter.setAutoFormatting(true);
+        xmlWriter.writeStartDocument();
+        xmlWriter.writeStartElement("canvas");
+        for(int i = 0; i < objects.size(); i++)
+            objects[i].get()->xmlWrite(xmlWriter);
+        xmlWriter.writeEndElement();
+        xmlWriter.writeEndDocument();
+    }
+    file->close();
+}
+
+void MainWindow::load()
+{
+    QString filePath = QFileDialog::getOpenFileName(this, tr("Open XML"), "/home/jana", tr("XML Files (*.xml)"));
+    file = new QFile(filePath);
+    if (!file->open(QFile::ReadOnly | QFile::Text))
+    {
+        return;
+    }
+    else
+    {
+        QXmlStreamReader xmlReader;
+        xmlReader.setDevice(file);
+        xmlReader.readNext();
+        std::string str_ellipse = "ellipse";
+        std::string str_rect = "rectangle";
+        while(!xmlReader.atEnd())
+        {
+            if(xmlReader.isStartElement())
+            {
+                if(xmlReader.name() == QString::fromStdString(str_ellipse))
+                {
+                    std::unique_ptr<Shape> ptr = std::unique_ptr<Shape>(Ellipse::xmlRead(xmlReader));
+                    this->objects.push_back(std::move(ptr));
+                }
+                else if(xmlReader.name() == QString::fromStdString(str_rect))
+                {
+                    std::unique_ptr<Shape> ptr = std::unique_ptr<Shape>(Rectangle::xmlRead(xmlReader));
+                    this->objects.push_back(std::move(ptr));
+                }
+            }
+            xmlReader.readNext();
+        }
+        file->close();
+    }
+    this->doPainting();
+}
+
+void MainWindow::slotShortcutCtrlL()
+{
+    load();
 }

@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include "shape.h"
 #include "QComboBox"
+#include <QShortcut>
+#include "QFile"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,15 +21,21 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+private slots:
+    void buttonClicked();
+    void slotShortcutCtrlS();
+    void slotShortcutCtrlL();
+
+private:
+    void paintEvent(QPaintEvent *e);
+    void load();
+    void save();
     bool eventFilter(QObject *obj, QEvent *event);
     void doPainting();
     Shape* createShape();
 
-private slots:
-    void buttonClicked();
-
 private:
-    void paintEvent(QPaintEvent *e);
     Ui::MainWindow *ui;
     bool clicked = false;
     std::vector<std::unique_ptr<Shape>> objects;
@@ -35,5 +43,8 @@ private:
     QComboBox *colorButton;
     std::map<QPushButton*, std::pair<bool, Factory*>> mybuttonsClicked;
     std::vector<QPushButton*> mybuttons;
+    QShortcut *keyCtrlS;
+    QShortcut *keyCtrlL;
+    QFile *file;
 };
 #endif // MAINWINDOW_H
